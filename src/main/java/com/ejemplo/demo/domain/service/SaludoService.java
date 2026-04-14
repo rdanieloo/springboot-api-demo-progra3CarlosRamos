@@ -1,3 +1,7 @@
+//Programacion3
+//CarlosRam0s
+//09052314141
+
 package com.ejemplo.demo.domain.service;
 
 import com.ejemplo.demo.api.dto.SaludoResponse;
@@ -23,6 +27,21 @@ public class SaludoService {
       3) Agregar prefijo "Estudiante".
     */
     String normalizarNombre(String nombre) {
-        return nombre == null ? "Mundo" : nombre.trim();
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return "Mundo";
+        }
+
+        // 2) Rechazar nombres con numeros
+        if (nombre.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("El nombre no puede contener numeros");
+        }
+
+        // 1) Primera letra mayuscula y resto minuscula
+        String recortado = nombre.trim();
+        String nombreFormateado = recortado.substring(0, 1).toUpperCase()
+                                + recortado.substring(1).toLowerCase();
+
+        // 3) Agregar prefijo "Estudiante"
+        return "Estudiante " + nombreFormateado;
     }
 }
